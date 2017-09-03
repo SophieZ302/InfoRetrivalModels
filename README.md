@@ -19,9 +19,16 @@ For each given query, implement document ranking by five retrival models
   * Language models: `Okapi BM25`, Unigram LM with `Laplace` smoothing and Unigram LM with `Jelinek-Mercer` smoothing.
 Retrieving information such as `term frequency` and `document frequency` from the local ElasticSearch [REST API](https://www.elastic.co/guide/en/elasticsearch/reference/5.2/docs.html)
 
+![image_LM](https://socrateszhang.github.com/images/equation/jm.png)
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+*Unigram LM with Jelinek-Mercer smoothing*
+This is a similar language model, except that here we smooth a foreground document language model with a background model from the entire corpus.
 
+lm_jm(d,q)=∑w∈qlogp_jm(w|d)p_jm(w|d)=λtfw,dlen(d)+(1−λ)∑d′tfw,d′∑d′len(d′)
+lm_jm(d,q)=∑w∈qlog⁡p_jm(w|d)p_jm(w|d)=λtfw,dlen(d)+(1−λ)∑d′tfw,d′∑d′len(d′)
+Where:
+
+λ∈(0,1)λ∈(0,1) is a smoothing parameter which specifies the mixture of the foreground and background distributions.
 
 
 ### Result
