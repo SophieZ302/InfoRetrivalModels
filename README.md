@@ -67,6 +67,49 @@ Where:
 λ∈(0,1)λ∈(0,1) is a smoothing parameter which specifies the mixture of the foreground and background distributions.
 
 ## Elastic Search Setting 
+  ```
+DELETE /ap_dataset
+
+PUT /ap_dataset/
+{
+  "settings": {
+    "index": {
+      "store": {
+        "type": "fs"
+      },
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    },
+    "analysis": {
+      "analyzer": {
+        "my_english": { 
+          "type": "english",
+          "stopwords_path": "stoplist.txt" 
+        }
+      }
+    }
+  }
+}
+
+PUT /ap_dataset/document/_mapping
+{
+  "document": {
+    "properties": {
+      "docno": {
+        "type": "keyword",
+        "store": true
+      },
+      "text": {
+        "type": "text",
+        "store": true,
+        "term_vector": "with_positions_offsets_payloads",
+        "analyzer": "my_english"
+      }
+    }
+  }
+}
+  ```
+
 
 
 ### Result
