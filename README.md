@@ -1,5 +1,5 @@
-# InfoRetrivalModels
-Implement and compare various retrieval systems using vector space models and language models
+# Info Retrival Models
+*Implement and compare various retrieval systems using vector space models and language models*
 
 The project contains two parts:
   1. A program to parse the corpus AP89_DATA.zip files and index it with [ElasticSearch](https://www.elastic.co/products/elasticsearch) 
@@ -19,20 +19,20 @@ For each given query, implement document ranking by five retrival models
   * Language models: `Okapi BM25`, Unigram LM with `Laplace` smoothing and Unigram LM with `Jelinek-Mercer` smoothing.
 Retrieving information such as `term frequency` and `document frequency` from the local ElasticSearch [REST API](https://www.elastic.co/guide/en/elasticsearch/reference/5.2/docs.html)
 
-![image_LM](https://socrateszhang.github.com/images/equation/jm.png)
+
 
 *Unigram LM with Jelinek-Mercer smoothing*
 This is a similar language model, except that here we smooth a foreground document language model with a background model from the entire corpus.
 
-lm_jm(d,q)=∑w∈qlogp_jm(w|d)p_jm(w|d)=λtfw,dlen(d)+(1−λ)∑d′tfw,d′∑d′len(d′)
-lm_jm(d,q)=∑w∈qlog⁡p_jm(w|d)p_jm(w|d)=λtfw,dlen(d)+(1−λ)∑d′tfw,d′∑d′len(d′)
+![image_LM](images/equation/jm.png)
+
 Where:
 
 λ∈(0,1)λ∈(0,1) is a smoothing parameter which specifies the mixture of the foreground and background distributions.
 
 
 ### Result
- * For each [query](query/query_origin.txt), generate top 1000 documents by the ranking models
+ * For each [query](query.txt), generate top 1000 documents by the ranking models
  * Run command line evaluation file for each result using [trec_eval](trec_eval.txt) and [qrel_file](qrels.adhoc.51-100.AP89.txt) to get the following results.
   ```
   trec_eval [-q] qrel_file results_file
