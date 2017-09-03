@@ -3,8 +3,8 @@
 __Goal: Implement and compare various retrieval systems using vector space models and language models__
 
 The project contains two parts:
-  1. A program to parse the corpus AP89_DATA.zip files and index it with [ElasticSearch](https://www.elastic.co/products/elasticsearch) 
-  1. A query processor, which runs queries from an input file using a selected retrieval model
+1. A program to parse the corpus AP89_DATA.zip files and index it with [ElasticSearch](https://www.elastic.co/products/elasticsearch) 
+1. A query processor, which runs queries from an input file using a selected retrieval model
 
 ## Dataset
 This project uses trec_ap89 corpus of 84000 files that can be found from [TREC](http://trec.nist.gov/data.html).
