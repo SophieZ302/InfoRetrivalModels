@@ -55,10 +55,10 @@ This is a vector space model using a slightly modified version of TF to score do
 ![image_Okapi](image/equation/okapi.png)
 
 Where:
-tfw,dtfw,d is the term frequency of term w in document d
-len(d)len(d) is the length of document dd
-avg(len(d))avg(len(d)) is the average document length for the entire corpus
-The matching score for document dd and query qq is as follows.
+tf,d is the term frequency of term w in document d
+len(d) is the length of document dd
+avg(len(d)) is the average document length for the entire corpus
+The matching score for document dd and query q is as follows.
 
 #### TF-IDF
 This is the second vector space model. The scoring function is as follows.
@@ -66,7 +66,7 @@ This is the second vector space model. The scoring function is as follows.
 ![image_tf](image/equation/tfidf.png)
 
 Where:
-DD is the total number of documents in the corpus
+D is the total number of documents in the corpus
 dfwdfw is the number of documents which contain term ww
 Okapi BM25
 
@@ -76,7 +76,7 @@ is a language model based on a binary independence model. Its matching score is 
 ![image_bm25](image/equation/bm25.png)
 
 Where:
-tfw,qtfw,q is the term frequency of term ww in query 
+tf,q is the term frequency of term w in query 
 k1k1, k2k2, and bb are constants. You can use the values from the slides, or try your own.
 
 #### Unigram LM with Laplace smoothing
@@ -85,7 +85,7 @@ This is a language model with Laplace (“add-one”) smoothing. We will use max
 ![image_laplace](image/equation/laplace.png)
 
 Where:
-VV is the vocabulary size – the total number of unique terms in the collection.
+V is the vocabulary size – the total number of unique terms in the collection.
 
 
 #### Unigram LM with Jelinek-Mercer smoothing
