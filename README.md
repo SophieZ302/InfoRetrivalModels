@@ -1,28 +1,29 @@
 # Info Retrival Models
 
+## Goal
 __Implement and compare various retrieval systems using vector space models and language models__
 
 The project contains two parts:
   1. A program to parse the corpus AP89_DATA.zip files and index it with [ElasticSearch](https://www.elastic.co/products/elasticsearch) 
   2. A query processor, which runs queries from an input file using a selected retrieval model
 
-### Dataset
+## Dataset
 This project uses trec_ap89 corpus of 84000 files that can be found from [TREC](http://trec.nist.gov/data.html).
 
-### Document Indexing
+## Document Indexing
   * Use **Jsoup** to read HTML formated files from the dataset.
   * Parse them to **json** format by [google-gson](https://github.com/google/gson).
   * Use HTTP client to upload json files to a local [ElasticSearch](https://www.elastic.co/products/elasticsearch) using its [REST API](https://www.elastic.co/guide/en/elasticsearch/reference/5.2/docs.html)
   
-### Query Execution
+## Query Execution
 For each given query, implement document ranking by five retrival models
   * Vector space models: `Okapi-TF` and `TF-IDF`.
   * Language models: `Okapi BM25`, Unigram LM with `Laplace` smoothing and Unigram LM with `Jelinek-Mercer` smoothing.
 Retrieving information such as `term frequency` and `document frequency` from the local ElasticSearch [REST API](https://www.elastic.co/guide/en/elasticsearch/reference/5.2/docs.html)
 
-## Models: 
+## Models Explained: 
 #### Okapi TF
-This is a vector space model using a slightly modified version of TF to score documents. The Okapi TF score for term ww in document dd is as follows.
+This is a vector space model using a slightly modified version of TF to score documents. The Okapi TF score for term frequency in document frequencyis as follows.
 ![image_Okapi](image/equation/okapi.png)
 
 Where:
@@ -112,12 +113,21 @@ PUT /ap_dataset/document/_mapping
 
 
 
-### Result
+## Result
  * For each [query](query.txt.txt), generate top 1000 documents by the ranking models
  * Run command line evaluation file for each result using [trec_eval](trec_eval.txt) and [qrel_file](qrels.adhoc.51-100.AP89.txt) to get the following results.
   ```
   trec_eval [-q] qrel_file results_file
   ```
+
+Minimum scores for this project is listed below. 
+Okapi ( Accept > 0.13) 
+IDF ( Accept > 0.18) 
+BM25 ( Accept > 0.18) 
+Laplace ( Accept > 0.12) 
+JM ( Accept > 0.15)
+ 
+My retrival models are able to perform beyond this level with BM25 and TF-IDF being the top performers.
 
 |Model          |Average Precision|At 10 docs|At 30 docs|
 | ------------- | --------------- |----------|----------|
