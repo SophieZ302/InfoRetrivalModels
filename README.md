@@ -10,7 +10,7 @@ This project uses trec_ap89 corpus of 84000 files that can be found from [TREC](
 
 ### Document Indexing
   * Use **Jsoup** to read HTML formated files from the dataset.
-  * Parse them to **json** format by [google-gson] (https://github.com/google/gson).
+  * Parse them to **json** format by [google-gson](https://github.com/google/gson).
   * Use HTTP client to upload json files to a local [ElasticSearch](https://www.elastic.co/products/elasticsearch) using its [REST API](https://www.elastic.co/guide/en/elasticsearch/reference/5.2/docs.html)
   
 ### Query Execution
@@ -24,7 +24,7 @@ Retrieving information such as `term frequency` and `document frequency` from th
 *Unigram LM with Jelinek-Mercer smoothing*
 This is a similar language model, except that here we smooth a foreground document language model with a background model from the entire corpus.
 
-![image_LM](images/equation/jm.png)
+![image_LM](image/equation/jm.png)
 
 Where:
 
@@ -32,7 +32,7 @@ Where:
 
 
 ### Result
- * For each [query](query.txt), generate top 1000 documents by the ranking models
+ * For each [query](query.txt.txt), generate top 1000 documents by the ranking models
  * Run command line evaluation file for each result using [trec_eval](trec_eval.txt) and [qrel_file](qrels.adhoc.51-100.AP89.txt) to get the following results.
   ```
   trec_eval [-q] qrel_file results_file
