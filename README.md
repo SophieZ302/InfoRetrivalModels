@@ -20,13 +20,42 @@ For each given query, implement document ranking by five retrival models
   * Language models: `Okapi BM25`, Unigram LM with `Laplace` smoothing and Unigram LM with `Jelinek-Mercer` smoothing.
 Retrieving information such as `term frequency` and `document frequency` from the local ElasticSearch [REST API](https://www.elastic.co/guide/en/elasticsearch/reference/5.2/docs.html)
 
-## Models Explained: 
+
+
+
+## Result
+ * For each [query](query.txt.txt), generate top 1000 documents by the ranking models
+ * Run command line evaluation file for each result using [trec_eval](trec_eval.txt) and [qrel_file](qrels.adhoc.51-100.AP89.txt) to get the following results.
+  ```
+  trec_eval [-q] qrel_file results_file
+  ```
+
+Minimum scores for this project is listed below. 
+Okapi ( Accept > 0.13) 
+IDF ( Accept > 0.18) 
+BM25 ( Accept > 0.18) 
+Laplace ( Accept > 0.12) 
+JM ( Accept > 0.15)
+ 
+My retrival models are able to perform beyond this level with BM25 and TF-IDF being the top performers.
+
+|Model          |Average Precision|At 10 docs|At 30 docs|
+| ------------- | --------------- |----------|----------|
+| Okapi TF      | 0.2089          | 0.3760   | 0.2973   |
+| TF-IDF        | 0.2664          | 0.3720   | 0.3400   |
+| Okapi BM25    | 0.2408          | 0.3160   | 0.2800   |
+| Laplace       | 0.1999          | 0.3960   | 0.3000   |
+| Jelinek-Mercer| 0.2379          | 0.3580   | 0.2987   |
+
+
+## Appendex
+### Models Explained: 
 #### Okapi TF
 This is a vector space model using a slightly modified version of TF to score documents. The Okapi TF score for term frequency in document frequencyis as follows.
 ![image_Okapi](image/equation/okapi.png)
 
 Where:
-tfw,dtfw,d is the term frequency of term ww in document dd
+tfw,dtfw,d is the term frequency of term w in document d
 len(d)len(d) is the length of document dd
 avg(len(d))avg(len(d)) is the average document length for the entire corpus
 The matching score for document dd and query qq is as follows.
@@ -41,7 +70,8 @@ DD is the total number of documents in the corpus
 dfwdfw is the number of documents which contain term ww
 Okapi BM25
 
-#### BM25 is a language model based on a binary independence model. Its matching score is as follows.
+#### BM25 
+is a language model based on a binary independence model. Its matching score is as follows.
 
 ![image_bm25](image/equation/bm25.png)
 
@@ -109,33 +139,6 @@ PUT /ap_dataset/document/_mapping
   }
 }
   ```
-
-
-
-## Result
- * For each [query](query.txt.txt), generate top 1000 documents by the ranking models
- * Run command line evaluation file for each result using [trec_eval](trec_eval.txt) and [qrel_file](qrels.adhoc.51-100.AP89.txt) to get the following results.
-  ```
-  trec_eval [-q] qrel_file results_file
-  ```
-
-Minimum scores for this project is listed below. 
-Okapi ( Accept > 0.13) 
-IDF ( Accept > 0.18) 
-BM25 ( Accept > 0.18) 
-Laplace ( Accept > 0.12) 
-JM ( Accept > 0.15)
- 
-My retrival models are able to perform beyond this level with BM25 and TF-IDF being the top performers.
-
-|Model          |Average Precision|At 10 docs|At 30 docs|
-| ------------- | --------------- |----------|----------|
-| Okapi TF      | 0.2089          | 0.3760   | 0.2973   |
-| TF-IDF        | 0.2664          | 0.3720   | 0.3400   |
-| Okapi BM25    | 0.2408          | 0.3160   | 0.2800   |
-| Laplace       | 0.1999          | 0.3960   | 0.3000   |
-| Jelinek-Mercer| 0.2379          | 0.3580   | 0.2987   |
-
 
 
   
